@@ -17,7 +17,7 @@ def send_message(message):
 
 
 
-@bot.message_handler(regexp='play')
+@bot.message_handler(regexp='BlackJack')
 def send_random_num(message):
     markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
     item2 = types.KeyboardButton('next')
@@ -44,8 +44,8 @@ def send_random_num(message):
         def send_pisun(message):
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)          
             main = types.KeyboardButton('main')        
-            item3 = types.KeyboardButton('open_up')
-            markup.add(item3, main)
+            open_up = types.KeyboardButton('open_up')
+            markup.add(open_up, main)
             userNum1 = userNum + rndNum3
             if userNum1 == 21:
                 print(bot.send_message(message.chat.id, f'You win',reply_markup=markup))
@@ -70,19 +70,31 @@ def send_random_num(message):
 @bot.message_handler(regexp='help')
 def help(message):
     markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
-    BlackJack = types.KeyboardButton('play')
+    BlackJack = types.KeyboardButton('BlackJack')
     rndDice = types.KeyboardButton('guess_the_number')
-    markup.add(BlackJack, rndDice)
-    print(bot.send_message(message.chat.id, f'/play-играть в BlackJack \n/guess_the_number-играть в угадай число', reply_markup=markup))
+    games = types.KeyboardButton('games')
+    support = types.KeyboardButton('support')
+    markup.add(BlackJack, rndDice, games, support)
+    print(bot.send_message(message.chat.id,f' /BlackJack-играть в BlackJack \n/guess_the_number-играть в угадай число \n/games-мини игры \n/support-поддержка', reply_markup=markup))
 
+                           
+                           
+                           
+                           
+
+
+
+
+    
 @bot.message_handler(regexp='main')
 def main_menu(message):
     markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
-    BlackJack = types.KeyboardButton('play')
+    BlackJack = types.KeyboardButton('BlackJack')
     rndDice = types.KeyboardButton('guess_the_number')
     help = types.KeyboardButton('help')
     games = types.KeyboardButton('games')
-    markup.add(BlackJack, rndDice, help, games)
+    support = types.KeyboardButton('support')
+    markup.add(BlackJack, rndDice, help, games, support)
     bot.send_message(message.chat.id, f'вы в главном меню, {message.from_user.first_name}', reply_markup=markup)
 
 @bot.message_handler(regexp='games')
@@ -94,7 +106,9 @@ def mini_games(message):
     cube = types.KeyboardButton('cube')
     casino = types.KeyboardButton('casino')
     main = types.KeyboardButton('main')
-    markup.add(football,basketball,cube,casino,main)
+    darts = types.KeyboardButton('darts')
+    bowl = types.KeyboardButton('bowl')
+    markup.add(football,basketball,cube,casino, bowl, darts, main)
     bot.send_message(message.chat.id, f'кайфуй', reply_markup=markup)
     @bot.message_handler(regexp='football')
     def football(message):
@@ -112,6 +126,18 @@ def mini_games(message):
     def casino(message):
         bot.send_dice(message.chat.id,'🎰')
         bot.send_message(message.chat.id,reply_markup=markup)
+    @bot.message_handler(regexp='bowl')
+    def casino(message):
+        bot.send_dice(message.chat.id,'🎳')
+        bot.send_message(message.chat.id,reply_markup=markup)
+    @bot.message_handler(regexp='darts')        
+    def casino(message):
+        bot.send_dice(message.chat.id,'🎯')
+        bot.send_message(message.chat.id,reply_markup=markup)
+   
+@bot.message_handler(regexp='support')
+def support(message):
+    bot.send_message(message.chat.id, f'нам похуй, {message.from_user.first_name} ')
    
 
 bot.infinity_polling()
