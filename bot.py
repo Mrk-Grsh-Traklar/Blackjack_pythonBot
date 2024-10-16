@@ -2,7 +2,7 @@ import telebot as tb
 import random as rnd
 from telebot import types
 
-Token = "6514145919:AAGJY5oqN6qpBv90RidrwU9Ts5w26TyFjXE"
+Token = "TOKEN"
 print('started')
 bot = tb.TeleBot(Token)
 @bot.message_handler(commands=['start,play,open_up,help'])
